@@ -40,11 +40,29 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
+        int lengthOfEmail = email.length();
+        int atSymbol = email.indexOf("@");
+        int dashSymbol =  email.indexOf("-");
+        int dotSymbol = email.indexOf(".");
+        
+        if (atSymbol == -1 || atSymbol == 0 || atSymbol == lengthOfEmail - 1){
             return false;
         }
-        else {
+        else if(email.contains("#")){
+            return false;
+        }
+
+        else if (dashSymbol == atSymbol -1){
+            return false;
+        }
+
+        else if(dotSymbol == dotSymbol -1){
+            return false;
+        }
+
+        else{
             return true;
         }
+
     }
 }
