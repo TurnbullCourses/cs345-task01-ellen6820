@@ -26,9 +26,9 @@ class BankAccountTest {
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
         assertFalse( BankAccount.isEmailValid(""));         // empty string
-        assertFalse(BankAccount.isEmailValid("ellen-@.com"));
-        assertFalse(BankAccount.isEmailValid("e..a#.chapman@gmail.com"));
-        assertTrue(BankAccount.isEmailValid("e.a.chapman11@gmail.com"));
+        assertFalse(BankAccount.isEmailValid("ellen-@.com")); // symbol adjacent to @ is invalid
+        assertFalse(BankAccount.isEmailValid("e..a#.chapman@gmail.com")); // dash symbol is invalid in an email address
+        assertTrue(BankAccount.isEmailValid("e.a.chapman11@gmail.com")); //valid email address
         
     }
 
