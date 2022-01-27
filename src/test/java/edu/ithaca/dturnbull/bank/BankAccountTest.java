@@ -27,9 +27,12 @@ class BankAccountTest {
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
         assertFalse( BankAccount.isEmailValid(""));         // empty string
         assertFalse(BankAccount.isEmailValid("ellen-@.com")); // symbol adjacent to @ is invalid
-        assertFalse(BankAccount.isEmailValid("e..a#.chapman@gmail.com")); // dash symbol is invalid in an email address
-        assertTrue(BankAccount.isEmailValid("e.a.chapman11@gmail.com")); //valid email address
-        
+        assertFalse(BankAccount.isEmailValid("e..a.chapman@gmail.com")); // double dots symbol is invalid in an email address
+        assertFalse(BankAccount.isEmailValid("o#dd@gmail.com")); //invaild symbol
+        assertFalse(BankAccount.isEmailValid(".ea.chapman11@gmail.com")); //invaild opening symbol
+        assertFalse(BankAccount.isEmailValid("eac@hotmail.c")); //invaild domain
+        assertFalse(BankAccount.isEmailValid("eac@#otmail.com")); //invalid symbol in domain
+        assertFalse(BankAccount.isEmailValid("eac@aol")); //invalid domain   
     }
 
     @Test
