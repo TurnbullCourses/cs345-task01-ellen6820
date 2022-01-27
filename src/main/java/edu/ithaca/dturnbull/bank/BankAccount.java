@@ -40,12 +40,26 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email){
+
+        String[] parts = email.split("@");
+        String prefix = parts[0];
+        String suffix = parts[1];
+
         int lengthOfEmail = email.length();
         int atSymbol = email.indexOf("@");
         int dashSymbol =  email.indexOf("-");
         int dotSymbol = email.indexOf(".");
         
         if (atSymbol == -1 || atSymbol == 0 || atSymbol == lengthOfEmail - 1){
+            return false;
+        }
+        else if(atSymbol > 2){
+            return false;
+        }
+        else if(!suffix.contains(".")){
+            return false;
+        }
+        else if(email.startsWith(".")){
             return false;
         }
         else if(email.contains("#")){
@@ -59,7 +73,12 @@ public class BankAccount {
         else if(dotSymbol == dotSymbol -1){
             return false;
         }
-
+        else if(email.contains("..")){
+            return false;
+        }
+        else if(lengthOfEmail - dotSymbol < 3){
+            return false;
+        }
         else{
             return true;
         }
