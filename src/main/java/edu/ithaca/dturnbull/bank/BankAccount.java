@@ -28,6 +28,8 @@ public class BankAccount {
 
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
+     * if the amount is negative alert, invaild withdrawl amount "please enter a positive number"
+     * if the amount is larger than the balance alert, "not enough money"
      */
     public void withdraw (double amount) throws InsufficientFundsException{
         if (amount <= balance){

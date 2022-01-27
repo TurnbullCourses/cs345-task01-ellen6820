@@ -18,8 +18,10 @@ class BankAccountTest {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
 
-        assertEquals(100, bankAccount.getBalance(), 0.001);
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+        assertEquals(100, bankAccount.getBalance(), 0.001); //vaild withdrawal
+        assertThrows(InvalidAmountException.class, () -> bankAccount.withdraw(-400));//invalid amount to withdraw (negative)
+        //my idea for the invalid amount exception was you could create your own error? like the insufficient funds exception below?
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));//invalid amount to withdraw (not enought funds)
     }
 
     @Test
