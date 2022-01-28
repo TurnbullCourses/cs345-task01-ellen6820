@@ -19,7 +19,7 @@ class BankAccountTest {
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance(), 0.001); //vaild withdrawal
-        assertThrows(InvalidAmountException.class, () -> bankAccount.withdraw(-400));//invalid amount to withdraw (negative)
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-400));//invalid amount to withdraw (negative)
         //my idea for the invalid amount exception was you could create your own error? like the insufficient funds exception below?
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));//invalid amount to withdraw (not enought funds)
     }
@@ -27,7 +27,7 @@ class BankAccountTest {
     @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
-        assertFalse( BankAccount.isEmailValid(""));         // empty string
+        assertFalse(BankAccount.isEmailValid(""));         // empty string
         assertFalse(BankAccount.isEmailValid("ellen-@.com")); // symbol adjacent to @ is invalid
         assertFalse(BankAccount.isEmailValid("e..a.chapman@gmail.com")); // double dots symbol is invalid in an email address
         assertFalse(BankAccount.isEmailValid("o#dd@gmail.com")); //invaild symbol

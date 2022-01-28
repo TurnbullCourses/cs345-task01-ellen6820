@@ -52,6 +52,9 @@ public class BankAccount {
         int dashSymbol =  email.indexOf("-");
         int dotSymbol = email.indexOf(".");
         
+        if (atSymbol == -1){
+            return false;
+        }
         String[] parts = email.split("@");
         String suffix = parts[1]; 
 
@@ -86,6 +89,9 @@ public class BankAccount {
         }
 
     }
-
+    public static void main(String[] args) {
+         BankAccount.isEmailValid("");
+    }
 }
+
 /**this is a comment */
