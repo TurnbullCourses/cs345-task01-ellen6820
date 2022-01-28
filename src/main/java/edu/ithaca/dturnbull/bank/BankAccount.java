@@ -4,6 +4,7 @@ public class BankAccount {
 
     private String email;
     private double balance;
+    private String domain;
 
     /**
      * @throws IllegalArgumentException if email is invalid
@@ -41,22 +42,18 @@ public class BankAccount {
 
     public static boolean isEmailValid(String email){
 
-        String[] parts = email.split("@");
-        String prefix = parts[0];
-        String suffix = parts[1];
+       
+        
 
         int lengthOfEmail = email.length();
         int atSymbol = email.indexOf("@");
         int dashSymbol =  email.indexOf("-");
         int dotSymbol = email.indexOf(".");
         
+        String[] parts = email.split("@");
+        String suffix = parts[1]; 
+
         if (atSymbol == -1 || atSymbol == 0 || atSymbol == lengthOfEmail - 1){
-            return false;
-        }
-        else if(atSymbol > 2){
-            return false;
-        }
-        else if(!suffix.contains(".")){
             return false;
         }
         else if(email.startsWith(".")){
@@ -79,9 +76,13 @@ public class BankAccount {
         else if(lengthOfEmail - dotSymbol < 3){
             return false;
         }
+        else if(suffix.indexOf(".") == -1){
+            return false;
+        }
         else{
             return true;
         }
 
     }
+
 }
