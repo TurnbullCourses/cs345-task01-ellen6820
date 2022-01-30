@@ -19,6 +19,8 @@ class BankAccountTest {
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance(), 0.001); //vaild withdrawal
+        bankAccount.withdraw(2); 
+        assertEquals(98, bankAccount.getBalance(), 0.001); //valid withdrawal - border case
         assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-400));//invalid amount to withdraw (negative)
         //my idea for the invalid amount exception was you could create your own error? like the insufficient funds exception below?
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));//invalid amount to withdraw (not enought funds)
