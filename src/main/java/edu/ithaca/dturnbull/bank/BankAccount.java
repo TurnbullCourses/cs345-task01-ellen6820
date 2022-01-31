@@ -157,5 +157,3 @@ public class BankAccount {
          BankAccount.isEmailValid("");
     }
 }
-
-/**this is a comment */
