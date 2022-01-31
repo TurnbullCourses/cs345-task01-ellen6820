@@ -113,7 +113,9 @@ public class BankAccount {
      * increases the balance by the amount is the amount is non-negative 
      */
     public void deposit(double amount) throws IllegalArgumentException{
-        
+        if(isAmountValid(amount)){
+            balance += amount;
+        }
     }
 
     /**
@@ -122,8 +124,13 @@ public class BankAccount {
      * @throws IllegalArgumentException
      * decreases the balance by amount if amount is non-negative and smaller than the balance
      */
-    public void transfer(double amount) throws IllegalArgumentException, InsufficientFundsException{
-
+    public void transfer(String destinationEmail, double amount) throws IllegalArgumentException, InsufficientFundsException{
+        if (isEmailValid(destinationEmail)){
+            withdraw(amount);
+        }
+        else{
+            throw new IllegalArgumentException("Please enter a valid email");
+        }
     }
 
     /**

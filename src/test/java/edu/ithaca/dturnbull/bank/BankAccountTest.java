@@ -75,11 +75,12 @@ class BankAccountTest {
     void transferTest() throws InsufficientFundsException, IllegalArgumentException{
         BankAccount bankAccount = new BankAccount("m@c.com", 1000);
         
-        bankAccount.transfer(50);
+        bankAccount.transfer("b@j.com", 50);
         assertEquals(950, bankAccount.getBalance(), 0.001);
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(-500)); // negative input 
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(500.555)); // too many decimals
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer(5000));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("---@---", 10));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("e@c.com", -500)); // negative input 
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("e@c.com", 500.555)); // too many decimals
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer("e@c.com", 5000));
 
     }
 
