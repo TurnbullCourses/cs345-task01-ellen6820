@@ -30,18 +30,6 @@ class BankAccountTest {
     }
 
     @Test
-    void withdrawTest() throws InsufficientFundsException, IllegalArgumentException{
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
-        bankAccount.withdraw(100);
-
-        assertEquals(100, bankAccount.getBalance(), 0.001); //vaild withdrawal
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(500)); // not enough money in the account
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-500)); // negative input 
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(500.555)); // too many decimals
-      
-    }
-
-    @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
         assertFalse(BankAccount.isEmailValid(""));         // empty string
@@ -56,6 +44,43 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("eac@hotmail.c")); //invaild domain
         assertFalse(BankAccount.isEmailValid("eac@#otmail.com")); //invalid symbol in domain
         assertFalse(BankAccount.isEmailValid("eac@aol")); //invalid domain   
+    }
+
+    @Test
+    void withdrawTest() throws InsufficientFundsException, IllegalArgumentException{
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        bankAccount.withdraw(100);
+
+        assertEquals(100, bankAccount.getBalance(), 0.001); //vaild withdrawal
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(500)); // not enough money in the account
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-500)); // negative input 
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(500.555)); // too many decimals
+      
+    }
+
+    @Test
+    void depositTest() throws IllegalArgumentException{
+        BankAccount bankAccount = new BankAccount("b@j.com", 200);
+        
+        bankAccount.deposit(100);
+        assertEquals(300, bankAccount.getBalance(), 0.001); // valid deposit
+        bankAccount.deposit(189.99);
+        assertEquals(489.99, bankAccount.getBalance(), 0.001); // valid deposit
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-500)); // negative input 
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(500.555)); // too many decimals
+
+    }
+
+    @Test 
+    void transferTest() throws InsufficientFundsException, IllegalArgumentException{
+        BankAccount bankAccount = new BankAccount("m@c.com", 1000);
+        
+        bankAccount.transfer(50);
+        assertEquals(950, bankAccount.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(-500)); // negative input 
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(500.555)); // too many decimals
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer(5000));
+
     }
 
     @Test
