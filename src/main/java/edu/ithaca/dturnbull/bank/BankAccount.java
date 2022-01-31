@@ -4,7 +4,6 @@ public class BankAccount {
 
     private String email;
     private double balance;
-    private String domain;
 
     /**
      * @throws IllegalArgumentException if email is invalid
