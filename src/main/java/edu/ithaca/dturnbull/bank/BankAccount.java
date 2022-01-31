@@ -151,8 +151,4 @@ public class BankAccount {
             throw new IllegalArgumentException("Please enter a positive amount to withdraw");
         }
     }
-
-    public static void main(String[] args) {
-         BankAccount.isEmailValid("");
-    }
 }
