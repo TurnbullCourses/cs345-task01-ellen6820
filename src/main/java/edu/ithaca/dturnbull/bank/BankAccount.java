@@ -32,12 +32,12 @@ public class BankAccount {
      * @return true if the amount is positive and has two decmial points or less
      * @throws IllegalArgumentException if too many decimals are entered
     */
-    public boolean isAmountValid(double amount) throws IllegalArgumentException{
+    public static boolean isAmountValid(double amount) throws IllegalArgumentException{
         
         String decimalCheck = String.valueOf(amount);
 
         if (amount < 0){
-            return false;
+            throw new IllegalArgumentException("Please enter a positive number");
         }
         else if (decimalCheck.contains(".")){
             boolean request = false;
@@ -62,20 +62,23 @@ public class BankAccount {
      * if the amount is negative alert, invaild withdrawl amount "please enter a positive number"
      * if the amount is larger than the balance alert, "not enough money"
      */
-    public void withdraw (double amount) throws InsufficientFundsException{
+    public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException{
+
+        isAmountValid(amount);
+
         if (amount <= balance){
             balance -= amount;
         }
-        else {
+        else if (amount >= balance){
             throw new InsufficientFundsException("Not enough money");
+        }
+        else{
+            throw new IllegalArgumentException("Please enter a positive amount to withdraw");
         }
     }
 
 
     public static boolean isEmailValid(String email){
-
-       
-        
 
         int lengthOfEmail = email.length();
         int atSymbol = email.indexOf("@");

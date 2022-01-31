@@ -17,30 +17,28 @@ class BankAccountTest {
 
     @Test
     void isAmountValidTest(){
-        BankAccount bankAccount = new BankAccount("keep@gmail.com", 100);
         //Valid Cases
-        assertTrue(bankAccount.isAmountValid(10.00)); 
-        assertTrue(bankAccount.isAmountValid(1895.63));
-        assertTrue(bankAccount.isAmountValid(170)); // no decimals
+        assertTrue(BankAccount.isAmountValid(10.00)); 
+        assertTrue(BankAccount.isAmountValid(1895.63));
+        assertTrue(BankAccount.isAmountValid(170)); // no decimals
 
         //Invalid Cases
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.isAmountValid(150.232)); // too many decimals
-        assertFalse(bankAccount.isAmountValid(-95.12)); // Negative
-        assertFalse(bankAccount.isAmountValid(-50000)); // Negative edge case
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.isAmountValid(150.232)); // too many decimals
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.isAmountValid(-95.12)); // Negative
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.isAmountValid(-50000)); // Negative edge case
 
     }
 
     @Test
-    void withdrawTest() throws InsufficientFundsException{
+    void withdrawTest() throws InsufficientFundsException, IllegalArgumentException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance(), 0.001); //vaild withdrawal
-        bankAccount.withdraw(2); 
-        assertEquals(98, bankAccount.getBalance(), 0.001); //valid withdrawal - border case
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-400));//invalid amount to withdraw (negative)
-        //my idea for the invalid amount exception was you could create your own error? like the insufficient funds exception below?
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));//invalid amount to withdraw (not enought funds)
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(500)); // not enough money in the account
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-500)); // negative input 
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(500.555)); // too many decimals
+      
     }
 
     @Test
@@ -68,6 +66,11 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        // Test for a valid amount input
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("e@c.com", -400));//invalid amount to withdraw (negative)
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("e@c.com", 400.235));//invalid amount to withdraw (too many decimals)
+        
     }
 
 }
