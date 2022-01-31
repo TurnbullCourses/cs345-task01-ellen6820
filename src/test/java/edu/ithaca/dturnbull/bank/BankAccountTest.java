@@ -24,7 +24,7 @@ class BankAccountTest {
         assertTrue(bankAccount.isAmountValid(170)); // no decimals
 
         //Invalid Cases
-        assertFalse(bankAccount.isAmountValid(150.232)); // too many decimals
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.isAmountValid(150.232)); // too many decimals
         assertFalse(bankAccount.isAmountValid(-95.12)); // Negative
         assertFalse(bankAccount.isAmountValid(-50000)); // Negative edge case
 
@@ -47,10 +47,14 @@ class BankAccountTest {
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
         assertFalse(BankAccount.isEmailValid(""));         // empty string
+        
+        //prefix tests
         assertFalse(BankAccount.isEmailValid("ellen-@.com")); // symbol adjacent to @ is invalid
         assertFalse(BankAccount.isEmailValid("e..a.chapman@gmail.com")); // double dots symbol is invalid in an email address
         assertFalse(BankAccount.isEmailValid("o#dd@gmail.com")); //invaild symbol
         assertFalse(BankAccount.isEmailValid(".ea.chapman11@gmail.com")); //invaild opening symbol
+
+        //domain tests
         assertFalse(BankAccount.isEmailValid("eac@hotmail.c")); //invaild domain
         assertFalse(BankAccount.isEmailValid("eac@#otmail.com")); //invalid symbol in domain
         assertFalse(BankAccount.isEmailValid("eac@aol")); //invalid domain   

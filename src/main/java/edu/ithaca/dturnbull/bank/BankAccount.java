@@ -30,8 +30,9 @@ public class BankAccount {
     /**
      * @param amount
      * @return true if the amount is positive and has two decmial points or less
+     * @throws IllegalArgumentException if too many decimals are entered
     */
-    public boolean isAmountValid(double amount){
+    public boolean isAmountValid(double amount) throws IllegalArgumentException{
         
         String decimalCheck = String.valueOf(amount);
 
@@ -47,7 +48,7 @@ public class BankAccount {
                 request = true;
             }
             else if (decimalCheck.length() - 3 != decimalCheck.indexOf(".")){
-                request = false;
+                throw new IllegalArgumentException("Too many decimal places in value entered");
             }
             return request;
         }
