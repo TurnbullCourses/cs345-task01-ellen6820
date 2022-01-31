@@ -28,6 +28,35 @@ public class BankAccount {
     }
 
     /**
+     * @param amount
+     * @return true if the amount is positive and has two decmial points or less
+    */
+    public boolean isAmountValid(double amount){
+        
+        String decimalCheck = String.valueOf(amount);
+
+        if (amount < 0){
+            return false;
+        }
+        else if (decimalCheck.contains(".")){
+            boolean request = false;
+            if(decimalCheck.length() - 3 == decimalCheck.indexOf(".")){
+                request = true;
+            }
+            else if(decimalCheck.length() - 2 == decimalCheck.indexOf(".")){
+                request = true;
+            }
+            else if (decimalCheck.length() - 3 != decimalCheck.indexOf(".")){
+                request = false;
+            }
+            return request;
+        }
+        else{
+            return true;
+        }
+    }
+
+    /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
      * if the amount is negative alert, invaild withdrawl amount "please enter a positive number"
      * if the amount is larger than the balance alert, "not enough money"

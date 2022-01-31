@@ -16,6 +16,21 @@ class BankAccountTest {
     }
 
     @Test
+    void isAmountValidTest(){
+        BankAccount bankAccount = new BankAccount("keep@gmail.com", 100);
+        //Valid Cases
+        assertTrue(bankAccount.isAmountValid(10.00)); 
+        assertTrue(bankAccount.isAmountValid(1895.63));
+        assertTrue(bankAccount.isAmountValid(170)); // no decimals
+
+        //Invalid Cases
+        assertFalse(bankAccount.isAmountValid(150.232)); // too many decimals
+        assertFalse(bankAccount.isAmountValid(-95.12)); // Negative
+        assertFalse(bankAccount.isAmountValid(-50000)); // Negative edge case
+
+    }
+
+    @Test
     void withdrawTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
