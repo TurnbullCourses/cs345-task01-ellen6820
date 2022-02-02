@@ -4,7 +4,6 @@ public class BankAccount {
 
     private String email;
     private double balance;
-    private String domain;
 
     /**
      * @throws IllegalArgumentException if email is invalid
@@ -152,10 +151,4 @@ public class BankAccount {
             throw new IllegalArgumentException("Please enter a positive amount to withdraw");
         }
     }
-
-    public static void main(String[] args) {
-         BankAccount.isEmailValid("");
-    }
 }
-
-/**this is a comment */
