@@ -81,7 +81,7 @@ public class BankAccount {
      * @return true if the amount is positive and has two decmial points or less
      * @throws IllegalArgumentException if too many decimals are entered
     */
-    public static boolean isAmountValid(double amount) throws IllegalArgumentException{
+    public static boolean isAmountValid(double amount) throws IllegalArgumentException{ // code review made suggestions on how to improve this method but I was unable to implement the suggestion
         
         String decimalCheck = String.valueOf(amount);
 
@@ -112,7 +112,7 @@ public class BankAccount {
      * @param amount
      * increases the balance by the amount is the amount is non-negative 
      */
-    public void deposit(double amount) throws IllegalArgumentException{
+    public void deposit(double amount){ // throws IllegalArgumentException removed based off code review
         if(isAmountValid(amount)){
             balance += amount;
         }
@@ -124,7 +124,7 @@ public class BankAccount {
      * @throws IllegalArgumentException
      * decreases the balance by amount if amount is non-negative and smaller than the balance
      */
-    public void transfer(String destinationEmail, double amount) throws IllegalArgumentException, InsufficientFundsException{
+    public void transfer(String destinationEmail, double amount) throws IllegalArgumentException, InsufficientFundsException{ 
         if (isEmailValid(destinationEmail)){
             withdraw(amount);
         }

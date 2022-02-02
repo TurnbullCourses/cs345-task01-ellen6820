@@ -13,6 +13,9 @@ class BankAccountTest {
 
         BankAccount bankAccount2 = new BankAccount("try@gmail.com", 700);
         assertEquals(700, bankAccount2.getBalance(), 0.001);
+
+        BankAccount bankAccount3 = new BankAccount("try7@gmail.com", 0);
+        assertEquals(0, bankAccount3.getBalance(), 0.001);
     }
 
     @Test
@@ -43,7 +46,10 @@ class BankAccountTest {
         //domain tests
         assertFalse(BankAccount.isEmailValid("eac@hotmail.c")); //invaild domain
         assertFalse(BankAccount.isEmailValid("eac@#otmail.com")); //invalid symbol in domain
-        assertFalse(BankAccount.isEmailValid("eac@aol")); //invalid domain   
+        assertFalse(BankAccount.isEmailValid("eac@aol")); //invalid domain 
+        assertFalse(BankAccount.isEmailValid("eac@@aol.com")); // test suggested by code review
+        assertFalse(BankAccount.isEmailValid("eac@aol..com")); // test suggested by code review
+          
     }
 
     @Test
@@ -72,16 +78,20 @@ class BankAccountTest {
     }
 
     @Test 
-    void transferTest() throws InsufficientFundsException, IllegalArgumentException{
-        BankAccount bankAccount = new BankAccount("m@c.com", 1000);
+    void transferTest() throws InsufficientFundsException, IllegalArgumentException{ // comments improved based off code review
+        BankAccount bankAccount = new BankAccount("m@c.com", 2000);
         
         bankAccount.transfer("b@j.com", 50);
-        assertEquals(950, bankAccount.getBalance(), 0.001);
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("---@---", 10));
+        assertEquals(1950, bankAccount.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("---@---", 10)); // valid transfer
+        
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("e@c.com", -500)); // negative input 
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("e@c.com", 500.555)); // too many decimals
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer("e@c.com", 5000));
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer("e@c.com", 5000)); // not enough funds
 
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("e-@c.com", 10)); // invalid email test
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer("e-@c.ithaca--edu.com", 10)); // invalid email test
+        
     }
 
     @Test
